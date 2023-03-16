@@ -24,7 +24,7 @@ namespace ExamenLoto
             InicializarValores();
             miGanadora = new MTB2223(); // generamos la combinación ganadora
             for (int i = 0; i < MAX_NUMEROS; i++)
-                ganadora[i].Text = Convert.ToString(miGanadora.Nums[i]);
+                ganadora[i].Text = Convert.ToString(miGanadora.Combinacion[i]);
 
         }
 
@@ -49,7 +49,7 @@ namespace ExamenLoto
         {
             miLoto = new MTB2223(); // usamos constructor vacío, se genera combinación aleatoria
             for ( int i=0; i< MAX_NUMEROS; i++ )
-                combinacion[i].Text = Convert.ToString(miLoto.Nums[i]);
+                combinacion[i].Text = Convert.ToString(miLoto.Combinacion[i]);
         }
 
         private void btValidar_Click(object sender, EventArgs e)

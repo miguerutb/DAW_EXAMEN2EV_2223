@@ -11,14 +11,14 @@ namespace LotoClassNS
         public const int NUMERO_MENOR = 1;
         public const int NUMERO_MAYOR = 49;
         
-        private int[] _nums = new int[MAX_NUMEROS];   // numeros de la combinación
-        private bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
+        private int[] combinacion = new int[MAX_NUMEROS];   // numeros de la combinación
+        private bool valida = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
 
-        public int[] Nums { 
-            get => _nums; 
-            set => _nums = value; 
+        public int[] Combinacion { 
+            get => combinacion; 
+            set => combinacion = value; 
         }
-        public bool Ok { get => ok; set => ok = value; }
+        public bool Ok { get => valida; set => valida = value; }
 
         // En el caso de que el constructor sea vacío, se genera una combinación aleatoria correcta
         /// <summary>
@@ -35,11 +35,11 @@ namespace LotoClassNS
             {                       
                 num = r.Next(NUMERO_MENOR, NUMERO_MAYOR + 1);     // generamos un número aleatorio del 1 al 49
                 for (j=0; j<i; j++)    // comprobamos que el número no está
-                    if (Nums[j]==num)
+                    if (Combinacion[j]==num)
                         break;
                 if (i==j)               // Si i==j, el número no se ha encontrado en la lista, lo añadimos
                 {
-                    Nums[i]=num;
+                    Combinacion[i]=num;
                     i++;
                 }
             } while (i<MAX_NUMEROS);
@@ -50,20 +50,27 @@ namespace LotoClassNS
         // La segunda forma de crear una combinación es pasando el conjunto de números
         // misnums es un array de enteros con la combinación que quiero crear (no tiene porqué ser válida)
         /// <summary>
-        /// Constructor de clase con parámetro <paramref name="misnums"/>
+        /// Constructor de clase con parámetro <paramref name="entrada"/>
         /// </summary>
-        /// <param name="misnums">Array de enteros con la combinacion a crear</param>
-        public MTB2223(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
+        /// <param name="entrada">Array de enteros con la combinacion a crear</param>
+        public MTB2223(int[] entrada)  // misnumeros: combinación con la que queremos inicializar la clase
         {
             for (int i=0; i<MAX_NUMEROS; i++)
-                if (misnums[i]>=NUMERO_MENOR && misnums[i]<=NUMERO_MAYOR) {
+            { 
+                if (entrada[i]>=NUMERO_MENOR && entrada[i]<=NUMERO_MAYOR) 
+                {
                     int j;
-                    for (j=0; j<i; j++) 
-                        if (misnums[i]==Nums[j])
+
+                    for (j=0; j<i; j++)
+                    {
+                        if (entrada[i]==Combinacion[j])
                             break;
-                    if (i==j)
-                        Nums[i]=misnums[i]; // validamos la combinación
-                    else {
+                    }
+
+                    if (i == j)
+                    {
+                        Combinacion[i]=entrada[i]; // validamos la combinación
+                    } else {
                         Ok=false;
                         return;
                     }
@@ -73,7 +80,8 @@ namespace LotoClassNS
                     Ok=false;     // La combinación no es válida, terminamos
                     return;
                 }
-	    Ok=true;
+            }
+	        Ok=true;
         }
 
         // Método que comprueba el número de aciertos
@@ -89,7 +97,7 @@ namespace LotoClassNS
             int aciertos=0;                    // número de aciertos
             for (int i=0; i<MAX_NUMEROS; i++)
                 for (int j=0; j<MAX_NUMEROS; j++)
-                    if (combinacionGanadora[i]==Nums[j]) aciertos++;
+                    if (combinacionGanadora[i]==Combinacion[j]) aciertos++;
             return aciertos;
         }
     }
