@@ -20,7 +20,10 @@ namespace LotoClassNS
         }
 
         // En el caso de que el constructor sea vacío, se genera una combinación aleatoria correcta
-        //
+        /// <summary>
+        /// Constructor de clase sin parámetros
+        /// <remarks>Se genera combinacion aleatoria</remarks>
+        /// </summary>
         public MTB2223()
         {
             Random r = new Random();    // clase generadora de números aleatorios
@@ -45,6 +48,10 @@ namespace LotoClassNS
 
         // La segunda forma de crear una combinación es pasando el conjunto de números
         // misnums es un array de enteros con la combinación que quiero crear (no tiene porqué ser válida)
+        /// <summary>
+        /// Constructor de clase con parámetro <paramref name="misnums"/>
+        /// </summary>
+        /// <param name="misnums">Array de enteros con la combinacion a crear</param>
         public MTB2223(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
         {
             for (int i=0; i<MAX_NUMEROS; i++)
@@ -71,13 +78,18 @@ namespace LotoClassNS
         // Método que comprueba el número de aciertos
         // premi es un array con la combinación ganadora
         // se devuelve el número de aciertos
-        public int comprobar(int[] premi)
+        /// <summary>
+        /// Comprueba el numero de aciertos
+        /// </summary>
+        /// <param name="combinacionGanadora">array con la combinacion ganadora</param>
+        /// <returns>Devuelve numero de aciertos</returns>
+        public int Comprobar(int[] combinacionGanadora)
         {
-            int a=0;                    // número de aciertos
+            int aciertos=0;                    // número de aciertos
             for (int i=0; i<MAX_NUMEROS; i++)
                 for (int j=0; j<MAX_NUMEROS; j++)
-                    if (premi[i]==Nums[j]) a++;
-            return a;
+                    if (combinacionGanadora[i]==Nums[j]) aciertos++;
+            return aciertos;
         }
     }
 

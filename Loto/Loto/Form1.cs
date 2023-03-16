@@ -61,7 +61,7 @@ namespace ExamenLoto
                 nums = new int[6];
                 for (int i = 0; i < 6; i++)
                     nums[i] = Convert.ToInt32(combinacion[i].Text);
-                int aciertos = miGanadora.comprobar(nums);
+                int aciertos = miGanadora.Comprobar(nums);
                 if (aciertos < 3)
                     MessageBox.Show("No ha resultado premiada");
                 else
