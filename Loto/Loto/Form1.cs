@@ -13,38 +13,52 @@ namespace ExamenLoto
 {
     public partial class Examen2EVMTB2223 : Form
     {
+        public const int MAX_NUMEROS = 6;
+
         public MTB2223 miLoto, miGanadora;
-        private TextBox[] combinacion = new TextBox[6]; // Estos arrays se usan para recorrer de manera más sencilla los controles
-        private TextBox[] ganadora = new TextBox[6];
+        private TextBox[] combinacion = new TextBox[MAX_NUMEROS]; // Estos arrays se usan para recorrer de manera más sencilla los controles
+        private TextBox[] ganadora = new TextBox[MAX_NUMEROS];
         public Examen2EVMTB2223()
         {
             InitializeComponent();
-            combinacion[0] = txtNumero1; ganadora[0] = txtGanadora1;
-            combinacion[1] = txtNumero2; ganadora[1] = txtGanadora2;
-            combinacion[2] = txtNumero3; ganadora[2] = txtGanadora3;
-            combinacion[3] = txtNumero4; ganadora[3] = txtGanadora4;
-            combinacion[4] = txtNumero5; ganadora[4] = txtGanadora5;
-            combinacion[5] = txtNumero6; ganadora[5] = txtGanadora6;
+            InicializarValores();
             miGanadora = new MTB2223(); // generamos la combinación ganadora
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < MAX_NUMEROS; i++)
                 ganadora[i].Text = Convert.ToString(miGanadora.Nums[i]);
 
+        }
+
+        private void InicializarValores()
+        {
+            combinacion[0] = txtNumero1;
+            combinacion[1] = txtNumero2;
+            combinacion[2] = txtNumero3;
+            combinacion[3] = txtNumero4;
+            combinacion[4] = txtNumero5;
+            combinacion[5] = txtNumero6;
+
+            ganadora[0] = txtGanadora1;
+            ganadora[1] = txtGanadora2;
+            ganadora[2] = txtGanadora3;
+            ganadora[3] = txtGanadora4;
+            ganadora[4] = txtGanadora5;
+            ganadora[5] = txtGanadora6;
         }
 
         private void btGenerar_Click(object sender, EventArgs e)
         {
             miLoto = new MTB2223(); // usamos constructor vacío, se genera combinación aleatoria
-            for ( int i=0; i<6; i++ )
+            for ( int i=0; i< MAX_NUMEROS; i++ )
                 combinacion[i].Text = Convert.ToString(miLoto.Nums[i]);
         }
 
         private void btValidar_Click(object sender, EventArgs e)
         {
-            int[] nums = new int[6];    
-            for (int i = 0; i < 6; i++)
+            int[] nums = new int[MAX_NUMEROS];    
+            for (int i = 0; i < MAX_NUMEROS; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
             miLoto = new MTB2223(nums);
-            if (miLoto.ok)
+            if (miLoto.Ok)
                 MessageBox.Show("Combinación válida");
             else
                 MessageBox.Show("Combinación no válida");
@@ -52,14 +66,14 @@ namespace ExamenLoto
 
         private void btComprobar_Click(object sender, EventArgs e)
         {
-            int[] nums = new int[6];
-            for (int i = 0; i < 6; i++)
+            int[] nums = new int[MAX_NUMEROS];
+            for (int i = 0; i < MAX_NUMEROS; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
             miLoto = new MTB2223(nums);
-            if (miLoto.ok)
+            if (miLoto.Ok)
             {
-                nums = new int[6];
-                for (int i = 0; i < 6; i++)
+                nums = new int[MAX_NUMEROS];
+                for (int i = 0; i < MAX_NUMEROS; i++)
                     nums[i] = Convert.ToInt32(combinacion[i].Text);
                 int aciertos = miGanadora.Comprobar(nums);
                 if (aciertos < 3)

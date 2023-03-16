@@ -12,12 +12,13 @@ namespace LotoClassNS
         public const int NUMERO_MAYOR = 49;
         
         private int[] _nums = new int[MAX_NUMEROS];   // numeros de la combinación
-        public bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
+        private bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
 
         public int[] Nums { 
             get => _nums; 
             set => _nums = value; 
         }
+        public bool Ok { get => ok; set => ok = value; }
 
         // En el caso de que el constructor sea vacío, se genera una combinación aleatoria correcta
         /// <summary>
@@ -43,7 +44,7 @@ namespace LotoClassNS
                 }
             } while (i<MAX_NUMEROS);
 
-            ok=true;
+            Ok=true;
         }
 
         // La segunda forma de crear una combinación es pasando el conjunto de números
@@ -63,16 +64,16 @@ namespace LotoClassNS
                     if (i==j)
                         Nums[i]=misnums[i]; // validamos la combinación
                     else {
-                        ok=false;
+                        Ok=false;
                         return;
                     }
                 }
                 else
                 {
-                    ok=false;     // La combinación no es válida, terminamos
+                    Ok=false;     // La combinación no es válida, terminamos
                     return;
                 }
-	    ok=true;
+	    Ok=true;
         }
 
         // Método que comprueba el número de aciertos
